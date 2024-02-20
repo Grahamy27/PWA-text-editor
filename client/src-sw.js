@@ -1,4 +1,4 @@
-const { warmStrategyCache } = require('workbox-recipes');
+const { offlineFallback, warmStrategyCache } = require('workbox-recipes');
 const { CacheFirst } = require('workbox-strategies');
 const { registerRoute } = require('workbox-routing');
 const { CacheableResponsePlugin } = require('workbox-cacheable-response');
@@ -42,8 +42,9 @@ registerRoute(
       }),
       // cache for 30 days
       new ExpirationPlugin({
+        maxEntries: 60, 
         maxAgeSeconds: 30 * 24 * 60 * 60,
-      }),
+      })
     ],
   })
 );
